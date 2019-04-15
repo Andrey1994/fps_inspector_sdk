@@ -23,7 +23,8 @@ def main ():
     fps_inspector.start_fliprate_recording (pid)
     time.sleep (10)
     fps_inspector.stop_fliprate_recording ()
-    data = fps_inspector.get_all_fliprates () # get all data from begining, also you can check the latest data using get_last_fliprates(num_samples) method
+    data = fps_inspector.get_all_fliprates () # get all data from begining, 
+    # also you can obtain the latest data using fps_inspector.get_last_fliprates(num_samples) method
     # data is a pandas dataframe, it simplify data analysis!
     print (data)
 
