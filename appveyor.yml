@@ -27,7 +27,9 @@ test_script:
   - python python\setup.py install
 
 after_test:
+  - pip install wheel
   - cd python && python setup.py sdist bdist_wheel
+
 deploy_script:
   - echo [distutils]                                 >> %USERPROFILE%\\.pypirc
   - echo index-servers =                             >> %USERPROFILE%\\.pypirc
