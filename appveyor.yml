@@ -34,6 +34,11 @@ after_test:
   - pip install wheel
   - cd python && python setup.py sdist bdist_wheel
 
+artifacts:
+  - path: dist
+    name: python_package 
+    type: zip
+
 deploy_script:
   - twine upload --skip-existing dist/*.whl --user Andrey1994 --password %PYPI_PASSWORD%
 
