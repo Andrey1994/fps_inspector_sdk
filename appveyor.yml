@@ -42,10 +42,8 @@ deploy_script:
   # Workaround required to ensure setup.py finds the .pypirc under Windows
   - set HOME=%USERPROFILE%
   
-  # Install wheel-building support
-  - "win_build.cmd %PYTHON%\\python.exe -m pip install wheel"
   - IF ($env:APPVEYOR_REPO_BRANCH -eq "master") {}
-  - ps: If ($env:APPVEYOR_REPO_BRANCH -eq "master") { Invoke-Expression "twine upload --skip-existing dist/*.whl" 2>$null } Else { write-output "Not on a tag on master, won't deploy to pypi"}
+  - ps: If ($env:APPVEYOR_REPO_BRANCH -eq "master") { Invoke-Expression "twine upload --skip-existing dist/*.whl" 2>$null } Else { write-output "Not on master, won't deploy to pypi"}
 
 
 notifications:
