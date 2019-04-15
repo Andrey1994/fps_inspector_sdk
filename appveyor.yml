@@ -35,17 +35,7 @@ after_test:
   - cd python && python setup.py sdist bdist_wheel
 
 deploy_script:
-  - echo [distutils]                                 >> %USERPROFILE%\\.pypirc
-  - echo index-servers =                             >> %USERPROFILE%\\.pypirc
-  - echo pypi                                        >> %USERPROFILE%\\.pypirc
-  - echo [pypi]                                      >> %USERPROFILE%\\.pypirc
-  - echo repository=https://pypi.python.org/pypi     >> %USERPROFILE%\\.pypirc
-  - echo username=Andrey1994                         >> %USERPROFILE%\\.pypirc
-  - echo password=%PYPIPASSWORD%                     >> %USERPROFILE%\\.pypirc
-
-  # Workaround required to ensure setup.py finds the .pypirc under Windows
-  - set HOME=%USERPROFILE%
-  - twine upload --skip-existing dist/*.whl
+  - twine upload --skip-existing dist/*.whl --user Andrey1994 --password %PYPIPASSWORD%
 
 
 notifications:
