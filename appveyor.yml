@@ -45,7 +45,7 @@ deploy_script:
 
   # Workaround required to ensure setup.py finds the .pypirc under Windows
   - set HOME=%USERPROFILE%
-  - cd python && twine upload --skip-existing dist/*.whl
+  - twine upload --skip-existing dist/*.whl
 
 
 notifications:
