@@ -1,0 +1,55 @@
+environmant:
+  PYPI_PASSWORD:
+    secure: ZuRCW1W45pqH03Lio54BzQ==
+
+image:
+- Visual Studio 2015
+
+platform:
+  - x64
+  
+stack: python 3
+
+environment:
+  PY_DIR: C:\Python36-x64
+
+clone_depth: 3
+
+init:
+  - cmd: set PATH=%PY_DIR%;%PY_DIR%\Scripts;%APPVEYOR_BUILD_FOLDER%\data\lib;%PATH%
+  - cmd: set CNC_INSTALL_CNCA0_CNCB0_PORTS="YES"
+
+install:
+  - pip install twine
+
+test_script:
+  - cmake_build.cmd
+  - python python\setup.py install
+
+after_test:
+  - cd python && python setup.py sdist bdist_wheel
+deploy_script:
+  - echo [distutils]                                 >> %USERPROFILE%\\.pypirc
+  - echo index-servers =                             >> %USERPROFILE%\\.pypirc
+  - echo pypi                                        >> %USERPROFILE%\\.pypirc
+  - echo [pypi]                                      >> %USERPROFILE%\\.pypirc
+  - echo repository=https://pypi.python.org/pypi     >> %USERPROFILE%\\.pypirc
+  - echo username=Andrey1994                         >> %USERPROFILE%\\.pypirc
+  - echo password=%PYPIPASSWORD%                     >> %USERPROFILE%\\.pypirc
+
+  # Workaround required to ensure setup.py finds the .pypirc under Windows
+  - set HOME=%USERPROFILE%
+  
+  # Install wheel-building support
+  - "win_build.cmd %PYTHON%\\python.exe -m pip install wheel"
+  - IF ($env:APPVEYOR_REPO_BRANCH -eq "master") {}
+  - ps: If ($env:APPVEYOR_REPO_BRANCH -eq "master") { Invoke-Expression "twine upload --skip-existing dist/*.whl" 2>$null } Else { write-output "Not on a tag on master, won't deploy to pypi"}
+
+
+notifications:
+  - provider: Email
+    to:
+      - a1994ndrey@gmail.com
+    on_build_success: false
+    on_build_failure: true
+    on_build_status_changed: true
