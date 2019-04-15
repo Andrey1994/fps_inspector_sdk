@@ -1,4 +1,5 @@
-environmant:
+environment:
+  PY_DIR: C:\Python36-x64
   PYPI_PASSWORD:
     secure: ZuRCW1W45pqH03Lio54BzQ==
 
@@ -9,9 +10,6 @@ platform:
   - x64
   
 stack: python 3
-
-environment:
-  PY_DIR: C:\Python36-x64
 
 clone_depth: 3
 
