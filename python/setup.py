@@ -7,7 +7,7 @@ with open (os.path.join (this_directory, 'README.md'), encoding = 'utf-8') as f:
 
 setup (
     name = 'fps_inspector_sdk',
-    version = '1.0',
+    version = '1.0.5',
     description = 'Library to measure FPS and FlipRate',
     long_description = long_description,
     long_description_content_type = 'text/markdown',
