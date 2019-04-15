@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="PresentMonTraceConsumer.hpp" />
+    <ClInclude Include="SwapChainData.hpp" />
+    <ClInclude Include="TraceConsumer.hpp" />
+    <ClInclude Include="DxgkrnlEventStructs.hpp" />
+    <ClInclude Include="MixedRealityTraceConsumer.hpp" />
+    <ClInclude Include="LateStageReprojectionData.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PresentMonTraceConsumer.cpp" />
+    <ClCompile Include="SwapChainData.cpp" />
+    <ClCompile Include="TraceConsumer.cpp" />
+    <ClCompile Include="MixedRealityTraceConsumer.cpp" />
+    <ClCompile Include="LateStageReprojectionData.cpp" />
+  </ItemGroup>
+</Project>
