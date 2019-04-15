@@ -3,16 +3,14 @@ environment:
   PYPI_PASSWORD:
     secure: ZuRCW1W45pqH03Lio54BzQ==
 
-branches:
-  only:
-    - master
+skip_non_tags: true
 
 image:
 - Visual Studio 2015
 
 platform:
   - x64
-  
+
 stack: python 3
 
 clone_depth: 3
@@ -36,7 +34,7 @@ after_test:
 
 artifacts:
   - path: dist
-    name: python_package 
+    name: python_package
     type: zip
 
 deploy_script:

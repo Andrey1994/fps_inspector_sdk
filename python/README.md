@@ -12,7 +12,7 @@ It's based on Event Tracing and doesn't hook inside game process unlike Fraps
 
 For now I've added only python binding if you wanna use another languages like C#, Java, R etc - let me know and I will add them
 
-Also, you are able to use compiled dll and header drom native code or add bindings by yourself
+Also, you are able to use compiled dll and header from native code or add bindings by yourself
 * [header](https://github.com/Andrey1994/fps_inspector_sdk/blob/master/src/PresentMon/PresentMon.hpp)
 * [dll](https://github.com/Andrey1994/fps_inspector_sdk/blob/master/python/fps_inspector_sdk/lib/PresentMon.dll)
 
