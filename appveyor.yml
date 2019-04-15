@@ -3,6 +3,10 @@ environment:
   PYPI_PASSWORD:
     secure: ZuRCW1W45pqH03Lio54BzQ==
 
+branches:
+  only:
+    - master
+
 image:
 - Visual Studio 2015
 
@@ -41,9 +45,7 @@ deploy_script:
 
   # Workaround required to ensure setup.py finds the .pypirc under Windows
   - set HOME=%USERPROFILE%
-  
-  - IF ($env:APPVEYOR_REPO_BRANCH -eq "master") {}
-  - ps: If ($env:APPVEYOR_REPO_BRANCH -eq "master") { Invoke-Expression "twine upload --skip-existing dist/*.whl" 2>$null } Else { write-output "Not on master, won't deploy to pypi"}
+  - cd python && twine upload --skip-existing dist/*.whl
 
 
 notifications:
