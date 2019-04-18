@@ -47,7 +47,7 @@ def main ():
     float_formatter = lambda x: "%.5f" % x
     numpy.set_printoptions (formatter={'float_kind': float_formatter}, threshold=numpy.inf)
 
-    pid = int (sys.argv[1])
+    pid = int (sys.argv[1]) # pid == 0 means recording all events from all processes
     fps_inspector.start_fliprate_recording (pid)
     time.sleep (10)
     fps_inspector.stop_fliprate_recording ()
