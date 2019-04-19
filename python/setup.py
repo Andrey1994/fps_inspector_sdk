@@ -20,7 +20,7 @@ setup (
         'Topic :: Utilities'
     ],
     install_requires = [
-        'numpy', 'Pillow', 'pandas'
+        'numpy', 'pandas'
     ],
     package_data = {
         'fps_inspector_sdk': [os.path.join ('lib', 'PresentMon.dll')]
