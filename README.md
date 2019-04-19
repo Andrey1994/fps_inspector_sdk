@@ -32,7 +32,7 @@ pip install fps_inspector_sdk
 
 *you have to run it with administrator priviligies and using 64-bit Python*
 
-Simple Sample:
+## Simple Sample
 ```
 import sys
 import time
