@@ -8,10 +8,11 @@ import platform
 from fps_inspector_sdk.exit_codes import PresentMonExitCodes
 
 
-class FliprateError (Exception):
+class FpsInspectorError (Exception):
     def __init__ (self, message, exit_code):
         detailed_message = '%s:%d %s' % (PresentMonExitCodes (exit_code).name, exit_code, message)
-        super (FliprateError, self).__init__ (detailed_message, exit_code)
+        super (FpsInspectorError, self).__init__ (detailed_message)
+        self.exit_code = exit_code
 
 
 class PresentMonDLL (object):
@@ -80,7 +81,7 @@ class PresentMonDLL (object):
 def start_fliprate_recording (pid = 0, max_samples = 86400*60):
     res = PresentMonDLL.get_instance ().StartEventRecording (pid, max_samples)
     if res != PresentMonExitCodes.STATUS_OK.value:
-        raise FliprateError ('unable to start event tracing session', res)
+        raise FpsInspectorError ('unable to start event tracing session', res)
 
 def get_last_fliprates (num_samples):
     fliprate_arr = numpy.zeros (num_samples*6).astype (numpy.float64)
@@ -89,7 +90,7 @@ def get_last_fliprates (num_samples):
 
     res = PresentMonDLL.get_instance().GetCurrentData (num_samples, fliprate_arr, time_arr, current_size)
     if res != PresentMonExitCodes.STATUS_OK.value:
-        raise FliprateError ('unable to get last fliprate data', res)
+        raise FpsInspectorError ('unable to get last fliprate data', res)
     sample_count = current_size[0]
     fliprate_arr = fliprate_arr[0:sample_count*6].reshape (sample_count, 6)
     return pandas.DataFrame (numpy.column_stack ((fliprate_arr, time_arr[0:current_size[0]])),
@@ -105,7 +106,7 @@ def get_fliprate_count ():
 
     res = PresentMonDLL.get_instance().GetDataCount (sample_count)
     if res != PresentMonExitCodes.STATUS_OK.value:
-        raise FliprateError ('unable to get fliprate count', res)
+        raise FpsInspectorError ('unable to get fliprate count', res)
     return sample_count[0]
 
 def get_all_fliprates ():
@@ -117,7 +118,7 @@ def get_all_fliprates ():
 
     res = PresentMonDLL.get_instance().GetData (current_size, time_arr, fliprate_arr)
     if res != PresentMonExitCodes.STATUS_OK.value:
-        raise FliprateError ('unable to get fliprate data', res)
+        raise FpsInspectorError ('unable to get fliprate data', res)
 
     fliprate_arr = fliprate_arr[0:sample_count*6].reshape (sample_count, 6)
     return pandas.DataFrame (numpy.column_stack ((fliprate_arr, time_arr[0:current_size[0]])),
@@ -126,14 +127,14 @@ def get_all_fliprates ():
 def stop_fliprate_recording ():
     res = PresentMonDLL.get_instance ().StopEventRecording ()
     if res != PresentMonExitCodes.STATUS_OK.value:
-        raise FliprateError ('unable to stop fliprate capturing', res)
+        raise FpsInspectorError ('unable to stop fliprate capturing', res)
 
 def enable_fliprate_log ():
     res = PresentMonDLL.get_instance ().SetLogLevel (0)
     if res != PresentMonExitCodes.STATUS_OK.value:
-        raise FliprateError ('unable to enable fliprate log', res)
+        raise FpsInspectorError ('unable to enable fliprate log', res)
 
 def disable_fliprate_log ():
     res = PresentMonDLL.get_instance ().SetLogLevel (6)
     if res != PresentMonExitCodes.STATUS_OK.value:
-        raise FliprateError ('unable to enable fliprate log', res)
+        raise FpsInspectorError ('unable to enable fliprate log', res)
